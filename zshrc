@@ -1,6 +1,6 @@
 # vim: set ft=sh ts=4 sw=4:
 #
-#   Copyright © 2013-2014 Sophie 'k4v' van Soest <linux@k4v.de>
+#   Copyright © 2013-2015 Sophie van Soest <linux@k4v.de>
 #   All rights reserved.
 #
 
@@ -27,7 +27,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_LS_COLORS="true"
 
 # Defines the LS_COLORS by the /etc/dir_colors file.
-eval `dircolors /etc/dir_colors`
+eval `dircolors ~/.dir_colors`
 
 # Uncomment following line if you want to disable autosetting terminal title.
 # DISABLE_AUTO_TITLE="true"
