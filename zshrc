@@ -8,7 +8,13 @@
 ZSH=/usr/share/oh-my-zsh/
 
 # Set name of the theme to load.
-ZSH_THEME="wezm+"
+ZSH_THEME="bullet-train"
+BULLETTRAIN_DIR_BG="48"
+BULLETTRAIN_DIR_FG="0"
+BULLETTRAIN_TIME_BG="234"
+BULLETTRAIN_TIME_FG="246"
+BULLETTRAIN_STATUS_BG="8"
+BULLETTRAIN_CONTEXT_DEFAULT_USER="sophie"
 
 # Exdends the PATH.
 path+=/data/misc/repos/customk4v
