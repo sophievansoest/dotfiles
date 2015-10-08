@@ -1,0 +1,14 @@
+[user]
+	name = Sophie van Soest
+	email = projects@k4v.de
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 1918x1059+1680+19
+	file-view-vpane-position = 92
+	main-window-view = FileView
+[push]
+	default = current
+[color]
+	ui = true
+[cola]
+	fontdiff = Terminus,11,-1,0,50,0,0,0,0,0
