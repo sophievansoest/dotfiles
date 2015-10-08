@@ -9,16 +9,36 @@ ZSH=/usr/share/oh-my-zsh/
 
 # Set name of the theme to load.
 ZSH_THEME="bullet-train"
-BULLETTRAIN_DIR_BG="48"
-BULLETTRAIN_DIR_FG="0"
+
+# Configurates by hostname the zsh-theme.
+case $(hostname) in
+ neo) 
+	BULLETTRAIN_DIR_BG="48"
+	BULLETTRAIN_DIR_FG="0"
+	;;
+ tank) 
+	BULLETTRAIN_DIR_BG="44"
+	BULLETTRAIN_DIR_FG="0"
+	;;
+ morphberry) 
+	BULLETTRAIN_DIR_BG="162"
+	BULLETTRAIN_DIR_FG="15"
+	BULLETTRAIN_GIT_SHOW=false
+	;;
+ *)	
+	BULLETTRAIN_DIR_BG="48"
+	BULLETTRAIN_DIR_FG="0"
+	;;
+esac
+
+# Sets other theme colors.
 BULLETTRAIN_TIME_BG="234"
 BULLETTRAIN_TIME_FG="246"
 BULLETTRAIN_STATUS_BG="8"
 BULLETTRAIN_CONTEXT_DEFAULT_USER="sophie"
 
 # Exdends the PATH.
-path+=/data/misc/repos/customk4v
-path+=/usr/share/playframework2
+PATH+=/usr/share/playframework2
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -43,6 +63,9 @@ eval `dircolors ~/.dir_colors`
 
 # Disables correction.
 DISABLE_CORRECTION="true"
+
+# Sets the path for custom framework stuff.
+ZSH_CUSTOM=$HOME/.zsh_custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 #plugins=(git)
@@ -195,8 +218,6 @@ export SDL_JOYSTICK_DEVICE=/dev/input/js2
 
 # Activates 256 colors on xterm.
 [[ "$TERM" == "xterm" ]] && export TERM=xterm-256color
-
-
 
 ## Nvidia threading ##
 #export LD_PRELOAD="/usr/lib/libpthread.so.0 /usr/lib/libGL.so.1" 
