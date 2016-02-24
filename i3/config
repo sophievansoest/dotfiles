@@ -1,0 +1,391 @@
+# i3 config file (v4)
+# 
+# Copyright © 2015-2016 Sophie van Soest <projects@k4v.de>
+# All rights reserved.
+# 
+
+# Autostart
+# ---------
+
+exec --no-startup-id /usr/local/bin/endura-trackpoint.sh
+
+# Screens as definitions
+# ----------------------
+# % xrandr
+
+set $screen0 		"DVI-I-2"
+set $screen1 		"DVI-I-3"
+
+# Fancy iconfont workspace definitions
+# ------------------------------------
+# used ttf-font-awesome, definited at bar{} as fallback font.
+# 
+
+set $workspace_term 	"1: term"
+set $workspace_web 	"2: web"
+set $workspace_im 	"3: im"
+set $workspace_mail 	"4: mail"
+set $workspace_office 	"5: office"
+set $workspace_vm 	"6: vm"
+set $workspace_reader 	" reader"
+set $workspace_art 	" art"
+set $workspace_chromium " chromium"
+set $workspace_webdevel " web-devel"
+set $workspace_firefox 	" firefox"
+set $workspace_skype 	" skype"
+set $workspace_x2go 	" x2go"
+set $workspace_file 	" file"
+set $workspace_devel 	" devel"
+set $workspace_git 	" git"
+set $workspace_wine 	" wine"
+set $workspace_mixer 	" mixer"
+set $workspace_music  	" music"
+set $workspace_musicc 	" music-creation"
+set $workspace_kodi 	" kodi"
+set $workspace_steam  	"8: steam"
+set $workspace_gaming 	"9:  gaming"
+set $workspace_ncmpcpp 	" ncmpcpp"
+set $workspace_new 	" new"
+
+# Workspace keybindings
+# ---------------------
+
+# Switch to workspace.
+bindsym $mod+1 workspace $workspace_term
+bindsym $mod+2 workspace $workspace_web
+bindsym $mod+3 workspace $workspace_mail
+bindsym $mod+4 workspace $workspace_vm
+bindsym $mod+5 workspace $workspace_office
+bindsym $mod+6 workspace $workspace_vm
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace $workspace_gaming
+bindsym $mod+0 workspace 10
+
+# Move focused container to workspace.
+bindsym $mod+Shift+1 move container to workspace $workspace_term
+bindsym $mod+Shift+2 move container to workspace $workspace_web
+bindsym $mod+Shift+3 move container to workspace $workspace_im
+bindsym $mod+Shift+4 move container to workspace $workspace_mail
+bindsym $mod+Shift+5 move container to workspace $workspace_office
+bindsym $mod+Shift+6 move container to workspace $workspace_vm
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace $workspace_gaming
+bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $mod+Shift+greater move container to output right
+bindsym $mod+Shift+less move container to output left
+
+bindsym $mod+Control+Left move workspace to output left
+bindsym $mod+Control+Right move workspace to output right
+
+bindsym $mod+Left workspace prev
+bindsym $mod+Right workspace next
+bindcode 191 workspace prev
+bindcode 192 workspace next
+
+
+# Workspace screen assigments
+# ---------------------------
+
+workspace $workspace_term output $screen0
+workspace $workspace_web output $screen0
+workspace $workspace_im output $screen1
+workspace $workspace_mail output $screen0
+workspace $workspace_office output $screen0
+workspace $workspace_vm output $screen0
+workspace $workspace_x2go output $screen1
+workspace $workspace_steam output $screen0
+
+# Workspace assignmens
+# --------------------
+# % xprop | grep WM_CLASS
+# first is the instance, second is the class.
+#
+
+assign [class="^Telegram$" instance="^Telegram$"] 	→ $workspace_im
+assign [class="^Pidgin$" instance="^Pidgin$"] 		→ $workspace_im
+assign [instance="^libreoffice$"] 			→ $workspace_office
+assign [class="^Soffice$" instance="^soffice$"]		→ $workspace_office
+assign [class="^Gscan2pdf$" instance="^gscan2pdf$"]	→ $workspace_office
+assign [class="^Skype$" instance="^Skype$"] 		→ $workspace_skype
+assign [class="^Vmware$" instance="^vmware$"]  		→ $workspace_vm
+assign [class="^Virtualbox$" instance="^Virtualbox$"]	→ $workspace_vm
+assign [class="^wine$"]					→ $workspace_wine
+assign [class="^Pavucontrol$" instance="^pavucontrol$"]	→ $workspace_mixer
+assign [class="^Thunderbird$" instance="^Mail$"] 	→ $workspace_mail
+assign [class="^chromium$" instance="^chromium$"] 	→ $workspace_web
+assign [class="^chromium$" instance="^tank__mopify$"] 	→ $workspace_music
+assign [class="^Spotify$" instance="^spotify$"] 	→ $workspace_music
+assign [instance="^ncmpcpp_playlist$"] 			→ $workspace_music
+assign [instance="^ncmpcpp_browser$"] 			→ $workspace_music
+assign [class="^Renoise$" instance="^renoise$"] 	→ $workspace_musicc
+assign [class="^Bitwig Studio$"] 			→ $workspace_musicc
+assign [class="^Cadence.py$" instance="^cadence.py$"] 	→ $workspace_musicc
+assign [class="^Claudia.py$" instance="^claudia.py$"] 	→ $workspace_musicc
+assign [class="^Carla$" instance="^carla$"] 		→ $workspace_musicc
+assign [instance="^FL.exe$"] 				→ $workspace_musicc
+assign [instance="^FL64.exe$"] 				→ $workspace_musicc
+assign [class="^Kodi$"] 				→ $workspace_kodi
+assign [class="^X2goclient$"] 				→ $workspace_x2go
+assign [class="^X2GoAgent$"] 				→ $workspace_x2go
+assign [class="^Steam$"] 				→ $workspace_steam
+assign [class="^mame$"] 				→ $workspace_gaming
+assign [class="^net-minecraft-bootstrap-Bootstrap$"]	→ $workspace_gaming
+assign [class="^Minecraft"] 				→ $workspace_gaming
+assign [class="^Terminator$" instance="^terminator$"] 	→ $workspace_term
+assign [class="^Filezilla$" instance="^filezilla$"] 	→ $workspace_file
+assign [class="^dolphin$" instance="^dolphin$"] 	→ $workspace_file
+assign [instance="^calibre-gui$"] 			→ $workspace_reader
+assign [instance="^calibre-ebook-viewer$"]  		→ $workspace_reader
+assign [class="^okular$" instance="^Okular$"]  		→ $workspace_reader
+assign [class="Gimp"] 			  		→ $workspace_art
+assign [class="^Inkscape$" instance="^inkscape$"]	→ $workspace_art
+
+for_window [class="processing-app-Base" title=".*Arduino 1.*"] move container to workspace $workspace_devel
+for_window [title="PlayOnLinux"] move container to workspace $workspace_wine
+for_window [title="^Dominion$"] move container to workspace $workspace_gaming
+for_window [title="^WhatsChrome$"] move container to workspace $workspace_im
+
+# Customized window settings
+# --------------------------
+
+for_window [class="^feh$"] floating enable
+for_window [class="^Chromium$" instance="^Chromium$"] focus
+
+for_window [class="^Chromium$"] border 1pixel
+
+for_window [class="^XCalc$"] floating enable
+for_window [class="^Speedcrunch$"] floating enable
+for_window [class="^GVim$"] split v, layout stacking
+for_window [class="^Xsane$"] floating enable
+for_window [class="^Shutter$"] floating enable
+
+for_window [class="^TeamViewer.exe$"] floating enable
+for_window [title="^TeamViewer$"] floating enable
+for_window [title="^Computers & Contacts$"] floating enable
+for_window [title="- TeamViewer -"] floating enable
+
+for_window [instance="OvertoneAnalyzer.exe"] floating enable
+
+for_window [instance="FL64.exe" title="^FL Studio"] floating disable
+for_window [instance="FL.exe" title="^FL Studio"] floating disable
+
+for_window [class="^Steam$" instance="^Steam$"] move container to workspace $workspace_steam
+for_window [class="^Steam$"] floating enable; border none
+
+for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
+
+for_window [class="^Spotify$"] move container to workspace $workspace_music
+
+for_window [title="^Google+ Hangouts is sharing your screen"] floating enable
+
+for_window [class="Skype" title="Information"] floating enable
+for_window [class="Skype" title="Add to Chat"] floating enable
+for_window [class="Skype" title="Profile for"] floating enable
+for_window [class="Skype" title="Contact request from"] floating enable
+for_window [class="Skype" title="Are you sure you want to call?"] floating enable
+for_window [class="Skype" title="Rename"] floating enable
+for_window [class="Skype" title="Search for Skype Contacts"] floating enable
+
+for_window [instance="VMwareUnityWindow$"] floating enable
+
+for_window [class="processing-app-Base" title="Find"] floating enable
+
+#for_window [class="Pidgin"] split h, layout tabbed
+for_window [class="Cadence.py"] layout tabbed
+
+#for_window [class="^Terminator$"] split h, layout tabbed
+
+#for_window [class="^Terminator$"] move to term
+#for_window [class="^Kodi"] move to kodi
+#for_window [class="^Chromium$" instance="^tank__mopify$"] move to mopify
+#for_window [title="^ncmpcpp_playlist$"] move to ncmpcpp
+#for_window [title="^ncmpcpp_browser"] move to ncmpcpp
+
+
+set $mod Mod4
+set $alt Mod1
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:opensans 8
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position.
+floating_modifier $mod
+
+# Configure scratchpad.
+bindsym $mod+m move scratchpad
+bindsym $mod+Shift+m scratchpad show;
+
+# Creates a new workspace.
+bindsym $mod+n exec ~/.i3/new_workspace.bash
+
+bindsym $mod+Control+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+
+# Mark focused window
+#bindsym $mod+Shift+1 mark 1
+#bindsym $mod+Shift+2 mark 2
+#bindsym $mod+Shift+3 mark 3
+#bindsym $mod+Shift+4 mark 4
+#bindsym $mod+Shift+5 mark 5
+#
+# # Focus marked window
+#bindsym $mod+1 [con_mark="1"] focus; exec $warp
+#bindsym $mod+2 [con_mark="2"] focus; exec $warp
+#bindsym $mod+3 [con_mark="3"] focus; exec $warp
+#bindsym $mod+4 [con_mark="4"] focus; exec $warp
+#bindsym $mod+5 [con_mark="5"] focus; exec $warp
+
+# Start a terminal.
+bindsym $mod+Return exec "terminator"
+bindsym $mod+Shift+Return exec "terminator -c _terminator"
+
+bindsym Print exec "ksnapshot"
+
+# MPD
+bindsym Control+$alt+P exec "mpc play"
+bindsym Control+$alt+N exec "mpc next"
+bindsym $mod+Tab exec "rofi -show window"
+bindsym $alt+Tab workspace back_and_forth
+
+# Kill focused window.
+bindsym $mod+Shift+q kill
+bindsym $mod+c kill
+
+# Start rofi (a program launcher).
+#bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec "rofi -show run"
+bindsym $mod+space exec "kupfer"
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# Change focus.
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+odiaeresis focus right
+
+# Alternatively, you can use the cursor keys:
+bindsym Control+$alt+Left focus left
+bindsym Control+$alt+Down focus down
+bindsym Control+$alt+Up focus up
+bindsym Control+$alt+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+odiaeresis move right
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in horizontal orientation.
+bindsym $mod+h split h
+
+# Split in vertical orientation.
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container.
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split).
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating.
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+x floating toggle
+
+# Change focus between tiling / floating windows.
+bindsym $mod+Control+space focus mode_toggle
+
+# Toggle between stacking/tabbed/splith/splitv:
+bindsym $mod+y layout toggle all
+
+# Focus the parent container.
+bindsym $mod+a focus parent
+
+# Focus the child container.
+#bindsym $mod+d focus child
+
+# Reload the configuration file.
+bindsym $mod+Shift+c reload
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Resize window (you can also use the mouse for that):
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 0 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym odiaeresis resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+new_window none
+new_float normal
+
+bar {
+  status_command 		python3 ~/.i3/i3pystatus_configuration.py
+  i3bar_command  		/usr/bin/i3bar-icons
+  position 			top
+  workspace_buttons 		yes
+  # strip_workspace_numbers: strips the numbers e.g.: '1:' of the workspace-title.
+  strip_workspace_numbers 	yes
+  font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+  font pango:Awesome 12
+  font pango:Open Sans Mono 12
+  colors {
+    separator #777777
+    background #1f2326
+    statusline #AAAAAA
+    focused_workspace #9FCA56 #9FCA56 #151718
+    active_workspace #DCCD69 #DCCD69 #151718
+    inactive_workspace #1f2326 #1f2326 #AAAAAA
+    urgent_workspace #CE4045 #CE4045 #FFFFFF
+  }
+}
+client.focused #9FCA56 #9FCA56 #151718 #9FCA56
+client.focused_inactive #9FCA56 #9FCA56 #151718 #A074C4
+client.unfocused #1f2326 #1f2326 #AAAAAA #A074C4
+client.urgent #CE4045 #CE4045 #FFFFFF #DCCD69
