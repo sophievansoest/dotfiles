@@ -15,6 +15,9 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                " change the terminal's title
 set noeb vb t_vb= 	 " disable beep and flash 
 
+set backspace=2
+set backspace=indent,eol,start
+
 "set number
 set ignorecase
 set incsearch
