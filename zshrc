@@ -212,9 +212,10 @@ export MPD_HOST=tank
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd_hrgb'
 export _JAVA_AWT_WM_NONREPARENTING=1
 export NODE_PATH=/usr/lib/node_modules/
-export VST_PATH=/usr/lib/vst/:/usr/local/lib/vst/:~/.vst/:~/.vst-bridges/
+export VST_PATH=/usr/lib/vst/:/usr/local/lib/vst/:~/.vst/:~/.wine32vst/drive_c/vst
 export TERM=xterm
 export SDL_JOYSTICK_DEVICE=/dev/input/js2
+export QT_QPA_PLATFORMTHEME='qt5ct'
 
 # Activates 256 colors on xterm.
 [[ "$TERM" == "xterm" ]] && export TERM=xterm-256color
