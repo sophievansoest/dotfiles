@@ -8,6 +8,9 @@
 # ---------
 
 exec --no-startup-id /usr/local/bin/endura-trackpoint.sh
+exec --no-startup-id systemctl --user start xorg-stuff.target
+exec --no-startup-id systemctl --user start desktop-apps.target
+exec --no-startup-id systemctl --user start messenger-apps.target
 
 # Screens as definitions
 # ----------------------
@@ -21,31 +24,31 @@ set $screen1 		"DVI-I-3"
 # used ttf-font-awesome, definited at bar{} as fallback font.
 # 
 
-set $workspace_term 	"1: term"
-set $workspace_web 	"2: web"
-set $workspace_im 	"3: im"
-set $workspace_mail 	"4: mail"
-set $workspace_office 	"5: office"
-set $workspace_vm 	"6: vm"
-set $workspace_reader 	" reader"
-set $workspace_art 	" art"
-set $workspace_chromium " chromium"
-set $workspace_webdevel " web-devel"
-set $workspace_firefox 	" firefox"
-set $workspace_skype 	" skype"
-set $workspace_x2go 	" x2go"
-set $workspace_file 	" file"
-set $workspace_devel 	" devel"
-set $workspace_git 	" git"
-set $workspace_wine 	" wine"
-set $workspace_mixer 	" mixer"
-set $workspace_music  	" music"
-set $workspace_musicc 	" music-creation"
-set $workspace_kodi 	" kodi"
-set $workspace_steam  	"8: steam"
-set $workspace_gaming 	"9:  gaming"
-set $workspace_ncmpcpp 	" ncmpcpp"
-set $workspace_new 	" new"
+set $workspace_term         "1: term"
+set $workspace_web          "2: web"
+set $workspace_im           "3: im"
+set $workspace_mail 	    "4: mail"
+set $workspace_office 	    "5: office"
+set $workspace_vm           "6: vm"
+set $workspace_reader       " reader"
+set $workspace_art          " art"
+set $workspace_chromium     " chromium"
+set $workspace_webdevel     " web-devel"
+set $workspace_firefox      " firefox"
+set $workspace_skype        " skype"
+set $workspace_x2go         " x2go"
+set $workspace_file         " file"
+set $workspace_devel        " devel"
+set $workspace_git          " git"
+set $workspace_wine         " wine"
+set $workspace_mixer        " mixer"
+set $workspace_music        " music"
+set $workspace_musicc       " music-creation"
+set $workspace_kodi         " kodi"
+set $workspace_steam        "8: steam"
+set $workspace_gaming       "9:  gaming"
+set $workspace_ncmpcpp      " ncmpcpp"
+set $workspace_new          " new"
 
 # Workspace keybindings
 # ---------------------
@@ -80,8 +83,8 @@ bindsym $mod+Shift+less move container to output left
 bindsym $mod+Control+Left move workspace to output left
 bindsym $mod+Control+Right move workspace to output right
 
-bindsym $mod+Left workspace prev
-bindsym $mod+Right workspace next
+bindsym $mod+Left workspace prev_on_output
+bindsym $mod+Right workspace next_on_output
 bindcode 191 workspace prev
 bindcode 192 workspace next
 
@@ -92,11 +95,13 @@ bindcode 192 workspace next
 workspace $workspace_term output $screen0
 workspace $workspace_web output $screen0
 workspace $workspace_im output $screen1
+workspace $workspace_mixer output $screen1
 workspace $workspace_mail output $screen0
 workspace $workspace_office output $screen0
 workspace $workspace_vm output $screen0
 workspace $workspace_x2go output $screen1
 workspace $workspace_steam output $screen0
+workspace $workspace_musicc output $screen0
 
 # Workspace assignmens
 # --------------------
@@ -104,44 +109,47 @@ workspace $workspace_steam output $screen0
 # first is the instance, second is the class.
 #
 
-assign [class="^Telegram$" instance="^Telegram$"] 	→ $workspace_im
-assign [class="^Pidgin$" instance="^Pidgin$"] 		→ $workspace_im
-assign [instance="^libreoffice$"] 			→ $workspace_office
-assign [class="^Soffice$" instance="^soffice$"]		→ $workspace_office
-assign [class="^Gscan2pdf$" instance="^gscan2pdf$"]	→ $workspace_office
-assign [class="^Skype$" instance="^Skype$"] 		→ $workspace_skype
-assign [class="^Vmware$" instance="^vmware$"]  		→ $workspace_vm
-assign [class="^Virtualbox$" instance="^Virtualbox$"]	→ $workspace_vm
-assign [class="^wine$"]					→ $workspace_wine
-assign [class="^Pavucontrol$" instance="^pavucontrol$"]	→ $workspace_mixer
-assign [class="^Thunderbird$" instance="^Mail$"] 	→ $workspace_mail
-assign [class="^chromium$" instance="^chromium$"] 	→ $workspace_web
-assign [class="^chromium$" instance="^tank__mopify$"] 	→ $workspace_music
-assign [class="^Spotify$" instance="^spotify$"] 	→ $workspace_music
-assign [instance="^ncmpcpp_playlist$"] 			→ $workspace_music
-assign [instance="^ncmpcpp_browser$"] 			→ $workspace_music
-assign [class="^Renoise$" instance="^renoise$"] 	→ $workspace_musicc
-assign [class="^Bitwig Studio$"] 			→ $workspace_musicc
-assign [class="^Cadence.py$" instance="^cadence.py$"] 	→ $workspace_musicc
-assign [class="^Claudia.py$" instance="^claudia.py$"] 	→ $workspace_musicc
-assign [class="^Carla$" instance="^carla$"] 		→ $workspace_musicc
-assign [instance="^FL.exe$"] 				→ $workspace_musicc
-assign [instance="^FL64.exe$"] 				→ $workspace_musicc
-assign [class="^Kodi$"] 				→ $workspace_kodi
-assign [class="^X2goclient$"] 				→ $workspace_x2go
-assign [class="^X2GoAgent$"] 				→ $workspace_x2go
-assign [class="^Steam$"] 				→ $workspace_steam
-assign [class="^mame$"] 				→ $workspace_gaming
-assign [class="^net-minecraft-bootstrap-Bootstrap$"]	→ $workspace_gaming
-assign [class="^Minecraft"] 				→ $workspace_gaming
-assign [class="^Terminator$" instance="^terminator$"] 	→ $workspace_term
-assign [class="^Filezilla$" instance="^filezilla$"] 	→ $workspace_file
-assign [class="^dolphin$" instance="^dolphin$"] 	→ $workspace_file
-assign [instance="^calibre-gui$"] 			→ $workspace_reader
-assign [instance="^calibre-ebook-viewer$"]  		→ $workspace_reader
-assign [class="^okular$" instance="^Okular$"]  		→ $workspace_reader
-assign [class="Gimp"] 			  		→ $workspace_art
-assign [class="^Inkscape$" instance="^inkscape$"]	→ $workspace_art
+assign [class="^Telegram$" instance="^Telegram$"]           → $workspace_im
+assign [class="^Pidgin$" instance="^Pidgin$"]               → $workspace_im
+assign [instance="^libreoffice$"]                           → $workspace_office
+assign [class="^Soffice$" instance="^soffice$"]             → $workspace_office
+assign [class="^Gscan2pdf$" instance="^gscan2pdf$"]         → $workspace_office
+assign [class="^Skype$" instance="^Skype$"]                 → $workspace_skype
+assign [class="^Vmware$" instance="^vmware$"]               → $workspace_vm
+assign [class="^Remote-viewer$" instance="^remote-viewer$"] → $workspace_vm
+assign [class="^Virt-manager$" instance="^virt-manager$"]   → $workspace_vm
+assign [class="^Virtualbox$" instance="^Virtualbox$"]       → $workspace_vm
+assign [class="^wine$"]                                     → $workspace_wine
+assign [class="^Pavucontrol$" instance="^pavucontrol$"]     → $workspace_mixer
+assign [class="^Thunderbird$" instance="^Mail$"]            → $workspace_mail
+assign [class="^chromium$" instance="^chromium$"]           → $workspace_web
+assign [class="^chromium$" instance="^tank__mopify$"]       → $workspace_music
+assign [class="^Spotify$" instance="^spotify$"]             → $workspace_music
+assign [instance="^ncmpcpp_playlist$"]                      → $workspace_music
+assign [instance="^ncmpcpp_browser$"]                       → $workspace_music
+assign [class="^Renoise$" instance="^renoise$"]             → $workspace_musicc
+assign [class="^Bitwig Studio$"]                            → $workspace_musicc
+assign [class="^Cadence.py$" instance="^cadence.py$"]       → $workspace_musicc
+assign [class="^Claudia.py$" instance="^claudia.py$"]       → $workspace_musicc
+assign [class="^Carla$" instance="^carla$"]                 → $workspace_musicc
+assign [instance="^FL.exe$"]                                → $workspace_musicc
+assign [instance="^FL64.exe$"]                              → $workspace_musicc
+assign [instance="^GuitarPro.exe$"]                         → $workspace_musicc
+assign [class="^Kodi$"]                                     → $workspace_kodi
+assign [class="^X2goclient$"]                               → $workspace_x2go
+assign [class="^X2GoAgent$"]                                → $workspace_x2go
+assign [class="^Steam$"]                                    → $workspace_steam
+assign [class="^mame$"]                                     → $workspace_gaming
+assign [class="^net-minecraft-bootstrap-Bootstrap$"]        → $workspace_gaming
+assign [class="^Minecraft"]                                 → $workspace_gaming
+assign [class="^Terminator$" instance="^terminator$"]       → $workspace_term
+assign [class="^Filezilla$" instance="^filezilla$"]         → $workspace_file
+assign [class="^dolphin$" instance="^dolphin$"]             → $workspace_file
+assign [instance="^calibre-gui$"]                           → $workspace_reader
+assign [instance="^calibre-ebook-viewer$"]                  → $workspace_reader
+assign [class="^okular$" instance="^Okular$"]               → $workspace_reader
+assign [class="Gimp"]                                       → $workspace_art
+assign [class="^Inkscape$" instance="^inkscape$"]           → $workspace_art
 
 for_window [class="processing-app-Base" title=".*Arduino 1.*"] move container to workspace $workspace_devel
 for_window [title="PlayOnLinux"] move container to workspace $workspace_wine
@@ -366,25 +374,53 @@ new_window none
 new_float normal
 
 bar {
-  status_command 		python3 ~/.i3/i3pystatus_configuration.py
-  i3bar_command  		/usr/bin/i3bar-icons
-  position 			top
-  workspace_buttons 		yes
-  # strip_workspace_numbers: strips the numbers e.g.: '1:' of the workspace-title.
-  strip_workspace_numbers 	yes
-  font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-  font pango:Awesome 12
-  font pango:Open Sans Mono 12
-  colors {
-    separator #777777
-    background #1f2326
-    statusline #AAAAAA
-    focused_workspace #9FCA56 #9FCA56 #151718
-    active_workspace #DCCD69 #DCCD69 #151718
-    inactive_workspace #1f2326 #1f2326 #AAAAAA
-    urgent_workspace #CE4045 #CE4045 #FFFFFF
-  }
+    output                      $screen0
+    status_command 		        python3 ~/.i3/i3pystatus_configuration.py
+    i3bar_command  		        /usr/bin/i3bar-icons
+    position 			        top
+    workspace_buttons 		    yes
+
+    # strip_workspace_numbers: strips the numbers e.g.: '1:' of the workspace-title.
+    strip_workspace_numbers 	yes
+
+    font                        -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font                        pango:Awesome 12
+    font                        pango:Open Sans Mono 12
+    colors {
+        separator               #777777
+        background              #1f2326
+        statusline              #AAAAAA
+        focused_workspace       #9FCA56 #9FCA56 #151718
+        active_workspace        #DCCD69 #DCCD69 #151718
+        inactive_workspace      #1f2326 #1f2326 #AAAAAA
+        urgent_workspace        #CE4045 #CE4045 #FFFFFF
+    }
 }
+
+bar {
+    output                      $screen1
+    status_command 		        python3 ~/.i3/i3pystatus_configuration_screen1.py
+    i3bar_command  		        /usr/bin/i3bar-icons
+    position                    top
+    workspace_buttons 		    yes
+
+    # strip_workspace_numbers: strips the numbers e.g.: '1:' of the workspace-title.
+    strip_workspace_numbers 	yes
+
+    font                        -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font                        pango:Awesome 12
+    font                        pango:Open Sans Mono 12
+    colors {
+        separator               #777777
+        background              #1f2326
+        statusline              #AAAAAA
+        focused_workspace       #9FCA56 #9FCA56 #151718
+        active_workspace        #DCCD69 #DCCD69 #151718
+        inactive_workspace      #1f2326 #1f2326 #AAAAAA
+        urgent_workspace        #CE4045 #CE4045 #FFFFFF
+    }
+}
+
 client.focused #9FCA56 #9FCA56 #151718 #9FCA56
 client.focused_inactive #9FCA56 #9FCA56 #151718 #A074C4
 client.unfocused #1f2326 #1f2326 #AAAAAA #A074C4
