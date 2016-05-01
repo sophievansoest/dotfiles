@@ -1,18 +1,35 @@
 #!/usr/bin/python3
 from i3pystatus import Status
+from i3pystatus.mail import imap
+from i3pystatus.weather import weathercom
 
 status = Status(standalone=True)
 
 status.register("clock",
-        color="#93A8D8",
-        format=" %a %-d %b %H:%M",)
+    color="#93A8D8",
+    format=" %a %-d %b %H:%M",
+)
 
 status.register("weather",
-  location_code="GMXX0027",
-  format="{current_temp}",
-  colorize=True,
-  units="metric",
-  on_leftclick= ["chromium http://www.weather.com/de-DE/wetter/heute/l/GMXX0027"]
+    format='{icon} {current_temp}{temp_unit}',
+    colorize=True,
+    backend=weathercom.Weathercom(
+        location_code="GMXX0027",
+        units="metric",
+    ),
+    on_leftclick= ["chromium http://www.weather.com/de-DE/wetter/heute/l/GMXX0027"]
+)
+
+status.register("shell",
+    format="<span color=\"#FFFFFF\">H:</span> <span color=\"#31F18B\">{output}</span>",
+    hints = {"markup": "pango"},
+    command="echo \"list DHT_Bedroom humidity\nexit\" | netcat tank 7072 | awk '{print $4}'",
+)
+
+status.register("shell",
+    format="<span color=\"#FFFFFF\">T:</span> <span color=\"#31F18B\">{output}°C</span> ",
+    hints = {"markup": "pango","separator": False, "separator_block_width": 0},
+    command="echo \"list DHT_Bedroom temperature\nexit\" | netcat tank 7072 | awk '{print $4}'",
 )
 
 status.register("mem",
