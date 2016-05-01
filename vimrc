@@ -68,3 +68,23 @@ cmap w!! w !sudo tee > /dev/null %
 
 command SaveAsRootAndSetChmodX :w !sudo tee % && sudo chmod +x % > /dev/null
 cmap w!x w !sudo tee % && sudo chmod +x % > /dev/null %
+
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set laststatus=2
+
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
+
+map <C-n> :NERDTreeToggle<CR>
+nmap <C-h> :bp<CR> 
+nmap <C-l> :bn<CR>
+
+" Neovim specific:
+if has('nvim')
+    set clipboard=unnamed
+    set clipboard+=unnamedplus
+endif
