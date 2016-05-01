@@ -1,6 +1,6 @@
 # vim: set ft=sh ts=4 sw=4:
 #
-#   Copyright © 2013-2015 Sophie van Soest <linux@k4v.de>
+#   Copyright © 2013-2016 Sophie van Soest <sophie@entropie.rocks>
 #   All rights reserved.
 #
 
@@ -76,16 +76,21 @@ source $ZSH/oh-my-zsh.sh
 
 ## Aliases ##
 # To use the default coreutils cat: "=cat". 
-#alias cat="vimcat"
 alias vcat="vimcat"
 
+### Progress for dd (since coreutils-8.24) ###
+alias dd='dd status=progress '
+
+### Replace vim with nvim. ###
+alias vim="nvim"
+
 ### Fasd plugin ###
-alias v='f -t -e vim -b viminfo'
+alias v='f -t -e nvim'
 alias o='a -e xdg-open'
 alias c='fasd_cd -d'
 
 ### Sudo aliases ###
-sudo_aliases=(pacman pacman-key pacman-optimize pacman-db-upgrade htop killall kill nethogs modprobe rmmod lsmod modinfo lspci avrdude gparted mount umount fdisk ifconfig)
+sudo_aliases=(pacman pacman-key pacman-optimize pacman-db-upgrade htop killall kill nethogs modprobe rmmod lsmod modinfo lspci avrdude gparted mount umount fdisk ifconfig pip pip2)
 for c in $sudo_aliases; do; alias $c="sudo $c"; done
 
 ## Suffix aliases ##
@@ -97,44 +102,15 @@ alias -s php=php
 alias feh="feh --index-info --draw-filename --keep-zoom-vp  --magick-timeout 1"
 alias feh-thumb="feh -t -Sfilename -E 128 -y 128 -W 1024 -P -C /usr/share/fonts/truetype/ttf-dejavu/ -e DejaVuSans/8"
 alias feh-today="feh *`date +"%F"`*"
-alias rgrep="grep -Ri"
+alias rgrep="grep -Rinw"
 alias mpc-file="mpc --format=%file% | xargs | cut -d ' ' -f1"
-alias dolphin="dolphin $PWD"
 alias watch="watch --interval=0,2"
 alias yaourt="yaourt --noconfirm"
 alias pdfsandwich="pdfsandwich -lang deu"
-
-## Backups ##
-backupDirectory="/data/misc/backups/generic"
-
-function backup-tar() {
-	if [ "$1" != "" ]; then
-#		modArguments="${1:0:1}${2:0:1}${3:0:1}${4:0:1}${5:0:1}${6:0:1}${7:0:1}${8:0:1}"
-#		backupArghash=$(echo ${modArguments} | tr 'A-Z' 'a-z' | tr -d -c 'a-z0-9- ')
-		echo $backupIdentifier
-		echo "Enter backupIdentifier:"
-		read backupIdentifier
-		if [ -z "${backupIdentifier}" ]; then
-			backupIdentifier="generic"
-		fi
-		backupDate=$(date +"%Y-%m-%d")
-		backupIdentifierName="${backupDate}_${backupIdentifier}_backup"
-		backupTarFileName=${backupDirectory}/${backupIdentifierName}.tar.gz
-		backupInfoFileName=${backupDirectory}/${backupIdentifierName}.info.md
-		backupLogFileName=${backupDirectory}/${backupIdentifierName}.log
-		backupChecksumFileName=${backupDirectory}/${backupIdentifierName}.sha256sum
-		backupCommand="tar -vczf ${backupTarFileName} $@"
-		echo -e "# Backup: ${backupIdentifier} - ${backupDate} #\n" 	 	\
-			"## Included Files and Directories at ${PWD} ##\n\t$@\n"		\
-			"## Executed command ##\n\t${backupCommand}\n" 					\
-			> ${backupInfoFileName}
-		#exec "${backupCommand}" >> "${backupLogFileName}"
-		tar -vczf ${backupTarFileName} $@
-		sha256sum "${backupTarFileName}" > "${backupChecksumFileName}"
-	else
-		echo "example: backup directory1 directory2 file1 file2 file3, then type the backup-identifier."
-	fi
-}
+alias kirschkuchen='7z a -t7z -m0=LZMA -mmt=on -mx=9 -md=96m -mfb=256'
+alias generate-password="head -c 32 /dev/urandom | base64 | head -c 32"
+alias pip-upgrade-review="sudo pip-review --local --auto"
+alias pip-upgrade-freeze="sudo pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U"
 
 ## Helper ##
 function cat-which() {
@@ -147,7 +123,9 @@ function vim-which() {
 		vim $(which $1)
 	fi
 }
-			
+function mpc-spotify-uri() {
+	mpc insert "$1" && mpc next
+}
 
 ## Systemd ##
 function journal() {
@@ -172,9 +150,9 @@ function systemctl-restart() {
 	fi
 }
 
-alias sc-suspend-system="sudo systemctl suspend"
-alias sc-reboot-system="sudo systemctl reboot"
-alias sc-poweroff-system="sudo systemctl poweroff"
+alias sc-suspend="sudo systemctl suspend"
+alias sc-reboot="sudo systemctl reboot"
+alias sc-poweroff="sudo systemctl poweroff"
 
 ## Systemd-plugin fork for handling user sessions.
 systemd_usersession_commands=(
@@ -202,7 +180,7 @@ zstyle ':completion:*:*' file-sort time
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 ## Environment ##
-export EDITOR=vim
+export EDITOR=nvim
 export PAGER=most
 export BROWSER=chromium
 export LESS=-cex3M
@@ -230,7 +208,6 @@ export http_proxy=
 export https_proxy=
 #export http_proxy=http://tank:3128
 #export https_proxy=http://tank:3128
-
 
 ## Keybindings ##
 bindkey "^[[3A"  history-beginning-search-backward
@@ -273,11 +250,3 @@ case $TERM in
         bindkey '^[[6~' history-beginning-search-forward   ## Page Down
         ;;
 esac
-
-## Disable correction for specific commands ##
-alias mv='nocorrect mv'      
-alias cp='nocorrect cp'            
-alias mkdir='nocorrect mkdir'      
-alias grep='nocorrect grep  --color=always'
-alias echo='nocorrect echo'
-alias sudo='nocorrect sudo'
