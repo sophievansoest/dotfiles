@@ -1,7 +1,7 @@
 " Vim color file
 "
 " Author: Tomas Restrepo <tomas@winterdom.com>
-" Author: Sophie van Soest <projects@k4v.de>
+" Author: Sophie van Soest <sophie@entropie.rocks>
 "
 " Note: Based on the monokai theme for textmate
 " by Wimer Hazenberg and its darker variant 
@@ -19,7 +19,7 @@ if version > 580
         syntax reset
     endif
 endif
-let g:colors_name="molokai_k4vmod"
+let g:colors_name="molokai_mod"
 
 if exists("g:molokai_original")
     let s:molokai_original = g:molokai_original
