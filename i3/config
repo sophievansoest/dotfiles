@@ -1,6 +1,6 @@
 # i3 config file (v4)
 # 
-# Copyright © 2015-2016 Sophie van Soest <projects@k4v.de>
+# Copyright © 2015-2016 Sophie van Soest <sophie@entropie.rocks>
 # All rights reserved.
 # 
 
@@ -16,37 +16,38 @@ exec --no-startup-id systemctl --user start messenger-apps.target
 # ----------------------
 # % xrandr
 
-set $screen0 		"DVI-I-2"
-set $screen1 		"DVI-I-3"
+set $screen0 		"HDMI1"
+set $screen1 		"HDMI2"
 
 # Fancy iconfont workspace definitions
 # ------------------------------------
 # used ttf-font-awesome, definited at bar{} as fallback font.
 # 
 
-set $workspace_term         "1: term"
-set $workspace_web          "2: web"
-set $workspace_im           "3: im"
-set $workspace_mail 	    "4: mail"
-set $workspace_office 	    "5: office"
-set $workspace_vm           "6: vm"
+set $workspace_term         "1:①  term"
+set $workspace_web          "2:②  web"
+set $workspace_im           "3:③  im"
+set $workspace_mail 	    "4:④  mail"
+set $workspace_office 	    "5:⑤  office"
+set $workspace_vm           "6:⑥  vm"
+set $workspace_devel        "7:⑦  devel"
+set $workspace_media        "8:⑧ media "
+set $workspace_gaming       "9:⑨   gaming"
+set $workspace_steam        "9: steam"
 set $workspace_reader       " reader"
-set $workspace_art          " art"
 set $workspace_chromium     " chromium"
 set $workspace_webdevel     " web-devel"
 set $workspace_firefox      " firefox"
 set $workspace_skype        " skype"
 set $workspace_x2go         " x2go"
-set $workspace_file         " file"
-set $workspace_devel        " devel"
+set $workspace_file         " file-manager"
 set $workspace_git          " git"
 set $workspace_wine         " wine"
 set $workspace_mixer        " mixer"
 set $workspace_music        " music"
 set $workspace_musicc       " music-creation"
+set $workspace_musicc2      " music-creation"
 set $workspace_kodi         " kodi"
-set $workspace_steam        "8: steam"
-set $workspace_gaming       "9:  gaming"
 set $workspace_ncmpcpp      " ncmpcpp"
 set $workspace_new          " new"
 
@@ -56,12 +57,12 @@ set $workspace_new          " new"
 # Switch to workspace.
 bindsym $mod+1 workspace $workspace_term
 bindsym $mod+2 workspace $workspace_web
-bindsym $mod+3 workspace $workspace_mail
-bindsym $mod+4 workspace $workspace_vm
+bindsym $mod+3 workspace $workspace_im
+bindsym $mod+4 workspace $workspace_mail
 bindsym $mod+5 workspace $workspace_office
 bindsym $mod+6 workspace $workspace_vm
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
+bindsym $mod+7 workspace $workspace_devel
+bindsym $mod+8 workspace $workspace_media
 bindsym $mod+9 workspace $workspace_gaming
 bindsym $mod+0 workspace 10
 
@@ -72,8 +73,8 @@ bindsym $mod+Shift+3 move container to workspace $workspace_im
 bindsym $mod+Shift+4 move container to workspace $workspace_mail
 bindsym $mod+Shift+5 move container to workspace $workspace_office
 bindsym $mod+Shift+6 move container to workspace $workspace_vm
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+7 move container to workspace $workspace_devel
+bindsym $mod+Shift+8 move container to workspace $workspace_media
 bindsym $mod+Shift+9 move container to workspace $workspace_gaming
 bindsym $mod+Shift+0 move container to workspace 10
 
@@ -84,7 +85,9 @@ bindsym $mod+Control+Left move workspace to output left
 bindsym $mod+Control+Right move workspace to output right
 
 bindsym $mod+Left workspace prev_on_output
+bindsym $mod+Shift+asciicircum workspace prev_on_output
 bindsym $mod+Right workspace next_on_output
+bindsym $mod+asciicircum workspace next_on_output
 bindcode 191 workspace prev
 bindcode 192 workspace next
 
@@ -98,10 +101,10 @@ workspace $workspace_im output $screen1
 workspace $workspace_mixer output $screen1
 workspace $workspace_mail output $screen0
 workspace $workspace_office output $screen0
-workspace $workspace_vm output $screen0
+workspace $workspace_vm output $screen1
 workspace $workspace_x2go output $screen1
 workspace $workspace_steam output $screen0
-workspace $workspace_musicc output $screen0
+workspace $workspace_musicc2 output $screen1
 
 # Workspace assignmens
 # --------------------
@@ -109,7 +112,7 @@ workspace $workspace_musicc output $screen0
 # first is the instance, second is the class.
 #
 
-assign [class="^Telegram$" instance="^Telegram$"]           → $workspace_im
+assign [class="^telegram-desktop$" instance="^telegram-desktop$"]           → $workspace_im
 assign [class="^Pidgin$" instance="^Pidgin$"]               → $workspace_im
 assign [instance="^libreoffice$"]                           → $workspace_office
 assign [class="^Soffice$" instance="^soffice$"]             → $workspace_office
@@ -129,12 +132,12 @@ assign [instance="^ncmpcpp_playlist$"]                      → $workspace_music
 assign [instance="^ncmpcpp_browser$"]                       → $workspace_music
 assign [class="^Renoise$" instance="^renoise$"]             → $workspace_musicc
 assign [class="^Bitwig Studio$"]                            → $workspace_musicc
-assign [class="^Cadence.py$" instance="^cadence.py$"]       → $workspace_musicc
-assign [class="^Claudia.py$" instance="^claudia.py$"]       → $workspace_musicc
-assign [class="^Carla$" instance="^carla$"]                 → $workspace_musicc
 assign [instance="^FL.exe$"]                                → $workspace_musicc
 assign [instance="^FL64.exe$"]                              → $workspace_musicc
 assign [instance="^GuitarPro.exe$"]                         → $workspace_musicc
+assign [class="^Claudia.py$" instance="^claudia.py$"]       → $workspace_musicc2
+assign [class="^Carla$" instance="^carla$"]                 → $workspace_musicc2
+assign [class="^Cadence.py$" instance="^cadence.py$"]       → $workspace_musicc2
 assign [class="^Kodi$"]                                     → $workspace_kodi
 assign [class="^X2goclient$"]                               → $workspace_x2go
 assign [class="^X2GoAgent$"]                                → $workspace_x2go
@@ -145,16 +148,21 @@ assign [class="^Minecraft"]                                 → $workspace_gamin
 assign [class="^Terminator$" instance="^terminator$"]       → $workspace_term
 assign [class="^Filezilla$" instance="^filezilla$"]         → $workspace_file
 assign [class="^dolphin$" instance="^dolphin$"]             → $workspace_file
+assign [class="^Nemo$" instance="^nemo$"]                   → $workspace_file
+assign [class="^Konqueror$" instance="^konqueror$"]         → $workspace_file
 assign [instance="^calibre-gui$"]                           → $workspace_reader
 assign [instance="^calibre-ebook-viewer$"]                  → $workspace_reader
 assign [class="^okular$" instance="^Okular$"]               → $workspace_reader
-assign [class="Gimp"]                                       → $workspace_art
-assign [class="^Inkscape$" instance="^inkscape$"]           → $workspace_art
+assign [class="Gimp"]                                       → $workspace_media
+assign [class="krita"]                                      → $workspace_media
+assign [class="^Inkscape$" instance="^inkscape$"]           → $workspace_media
+assign [class="^Blender$" instance="^Blender$"]             → $workspace_media
+assign [class="^Unity$" instance="^Unity$"]                 → $workspace_devel
 
 for_window [class="processing-app-Base" title=".*Arduino 1.*"] move container to workspace $workspace_devel
-for_window [title="PlayOnLinux"] move container to workspace $workspace_wine
+#for_window [title="PlayOnLinux"] move container to workspace $workspace_wine
 for_window [title="^Dominion$"] move container to workspace $workspace_gaming
-for_window [title="^WhatsChrome$"] move container to workspace $workspace_im
+#for_window [title="^WhatsChrome$"] move container to workspace $workspace_im
 
 # Customized window settings
 # --------------------------
@@ -384,8 +392,8 @@ bar {
     strip_workspace_numbers 	yes
 
     font                        -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-    font                        pango:Awesome 12
-    font                        pango:Open Sans Mono 12
+    font                        pango:Awesome 11
+    font                        pango:FiraMono-Bold 11
     colors {
         separator               #777777
         background              #1f2326
@@ -409,7 +417,7 @@ bar {
 
     font                        -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
     font                        pango:Awesome 12
-    font                        pango:Open Sans Mono 12
+    font                        pango:FiraMono-Bold 12
     colors {
         separator               #777777
         background              #1f2326
