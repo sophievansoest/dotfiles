@@ -79,6 +79,8 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 0
 
+let g:airline_theme='wombat'
+
 map <C-n> :NERDTreeToggle<CR>
 nmap <C-h> :bp<CR> 
 nmap <C-l> :bn<CR>
