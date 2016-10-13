@@ -10,7 +10,7 @@ ZSH=/usr/share/oh-my-zsh/
 # Set name of the theme to load.
 ZSH_THEME="bullet-train"
 
-# Configurates by hostname the zsh-theme.
+# Configurates the zsh-theme by hostname.
 case $(hostname) in
  neo) 
 	BULLETTRAIN_DIR_BG="48"
@@ -39,6 +39,7 @@ BULLETTRAIN_CONTEXT_DEFAULT_USER="sophie"
 
 # Exdends the PATH.
 PATH+=/usr/share/playframework2
+PATH+=:/usr/bin/vendor_perl
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -68,8 +69,7 @@ DISABLE_CORRECTION="true"
 ZSH_CUSTOM=$HOME/.zsh_custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-#plugins=(git)
-plugins=(archlinux gitfast rsync zsh-syntax-highlighting fasd systemd)
+plugins=(archlinux gitfast rsync zsh-syntax-highlighting fasd systemd history-substring-search)
 
 # Initialize the oh-my-zsh framework.
 source $ZSH/oh-my-zsh.sh
@@ -90,7 +90,7 @@ alias o='a -e xdg-open'
 alias c='fasd_cd -d'
 
 ### Sudo aliases ###
-sudo_aliases=(pacman pacman-key pacman-optimize pacman-db-upgrade htop killall kill nethogs modprobe rmmod lsmod modinfo lspci avrdude gparted mount umount fdisk ifconfig pip pip2)
+sudo_aliases=(pacman pacman-key pacman-optimize pacman-db-upgrade htop killall kill pkill nethogs modprobe rmmod lsmod modinfo lspci avrdude gparted mount umount fdisk hdparm ifconfig ip netctl pip pip2)
 for c in $sudo_aliases; do; alias $c="sudo $c"; done
 
 ## Suffix aliases ##
