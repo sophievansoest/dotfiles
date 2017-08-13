@@ -56,6 +56,9 @@ au BufRead,BufNewFile *.xhtml set filetype=html
 " JavaScript
 "au BufRead,BufNewFile *.coffee set filetype=javascript
 
+" YAML indentation
+au FileType yaml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+
 " Substitute the new file. :)
 autocmd BufNewFile * %substitute#\[:VIM_EVAL:\]\(.\{-\}\)\[:END_EVAL:\]#\=eval(submatch(1))#ge
 
